@@ -147,18 +147,16 @@ gulp.task('scripts:minify', ['scripts:jshint'], function() {
     .pipe(browserSync.reload({stream: true}));
 });
 
-//compressing images & handle SVG files
+//minify images
 gulp.task('images:minify', function() {
-    gulp.src(CONFIG.PATH.IMAGES.ROOT + '**/*')
-        //prevent pipe breaking caused by errors from gulp plugins
-        .pipe(plumber())
-        .pipe(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true }))
-        .pipe(gulp.dest(CONFIG.PATH.IMAGES.ROOT));
+    gulp.src( [CONFIG.PATH.IMAGES.ROOT + '**/*'] )
+    .pipe( imagemin( { optimizationLevel: 5, progressive: true, interlaced: true } ) )
+    .pipe( gulp.dest( CONFIG.PATH.IMAGES.ROOT ) );
 });
 
 //generate sprite file
 gulp.task('images:sprite', function () {
-    var spriteData = gulp.src(CONFIG.PATH.IMAGES.SPRITE + '*.png')
+    var spriteData = gulp.src(CONFIG.PATH.IMAGES.SPRITE + '**/*.png')
         .pipe(spritesmith({
             imgName: '../Images/Sprite.png',
             cssName: 'Sprite.scss',
@@ -198,17 +196,17 @@ gulp.task('watch', ['browserSync'], function () {
     }
 
     //styles watch
-    gulp.watch(['!' + CONFIG.PATH.STYLES.SCSS + 'Sprite.scss', CONFIG.PATH.STYLES.SCSS + '**/*.scss'], ['styles']).on('change', reportChange);
+    gulp.watch([CONFIG.PATH.STYLES.SCSS + '**/*.scss', '!' + CONFIG.PATH.STYLES.SCSS + 'Sprite.scss'], ['styles']);
 
     //images watch
-    gulp.watch([CONFIG.PATH.IMAGES.SPRITE + '*.png'], ['images:sprite']).on('change', reportChange);
+    gulp.watch([CONFIG.PATH.IMAGES.SPRITE + '**/*'], ['styles']);
     
     //scripts watch
-    gulp.watch(CONFIG.PATH.SCRIPTS.SRC + '**/*', ['scripts:minify']).on('change', reportChange);
+    gulp.watch(CONFIG.PATH.SCRIPTS.SRC + '**/*', ['scripts:minify']);
     
     //templates hbs watch
-    gulp.watch(CONFIG.PATH.TEMPLATES + '**/*.hbs', ['templates']).on('change', reportChange);
+    gulp.watch(CONFIG.PATH.TEMPLATES + '**/*.hbs', ['templates']);
 });
 
 // Task utilizada para chamar o watch
-gulp.task('default', ['templates', 'styles', 'scripts:minify' ]);
+gulp.task('default', ['templates', 'styles', 'scripts:minify', 'images:minify' ]);
