@@ -65,7 +65,7 @@ gulp.task('styles', ['images:sprite'], function() {
     	CONFIG.PATH.STYLES.SCSS + 'Plugins/*.scss',
     	CONFIG.PATH.STYLES.SCSS + 'Themes/*.scss',
     	CONFIG.PATH.STYLES.SCSS + 'Utilities/*.scss',
-    	CONFIG.PATH.STYLES.SCSS + 'Comum.scss'
+    	CONFIG.PATH.STYLES.SCSS + 'Common.scss'
 	])
     //prevent pipe breaking caused by errors from gulp plugins
     .pipe(plumber({
@@ -102,13 +102,13 @@ gulp.task('scripts:jshint', function() {
     //this is where our dev JS scripts are
     return gulp.src([
         CONFIG.PATH.SCRIPTS.SRC + 'Config.js',
+        CONFIG.PATH.SCRIPTS.SRC + 'Library/*.js',
         CONFIG.PATH.SCRIPTS.SRC + 'Base/*.js',
         CONFIG.PATH.SCRIPTS.SRC + 'Layout/*.js',
         CONFIG.PATH.SCRIPTS.SRC + 'Modules/*.js',
         CONFIG.PATH.SCRIPTS.SRC + 'Themes/*.js',
         CONFIG.PATH.SCRIPTS.SRC + 'Utilities/*.js',
-        CONFIG.PATH.SCRIPTS.SRC + 'Library/*.js',
-        CONFIG.PATH.SCRIPTS.SRC + 'Comum.js'
+        CONFIG.PATH.SCRIPTS.SRC + 'Common.js'
     ])
     //prevent pipe breaking caused by errors from gulp plugins
     .pipe(plumber())
@@ -126,13 +126,13 @@ gulp.task('scripts:minify', ['scripts:jshint'], function() {
     return gulp.src([
     	CONFIG.PATH.SCRIPTS.SRC + 'Config.js',
         CONFIG.PATH.SCRIPTS.SRC + 'Plugins/**/*.js',
+        CONFIG.PATH.SCRIPTS.SRC + 'Library/**/*.js',
     	CONFIG.PATH.SCRIPTS.SRC + 'Base/**/*.js',
     	CONFIG.PATH.SCRIPTS.SRC + 'Layout/**/*.js',
     	CONFIG.PATH.SCRIPTS.SRC + 'Modules/**/*.js',
     	CONFIG.PATH.SCRIPTS.SRC + 'Themes/**/*.js',
     	CONFIG.PATH.SCRIPTS.SRC + 'Utilities/**/*.js',
-        CONFIG.PATH.SCRIPTS.SRC + 'Library/**/*.js',
-    	CONFIG.PATH.SCRIPTS.SRC + 'Comum.js'
+    	CONFIG.PATH.SCRIPTS.SRC + 'Common.js'
 	])
     //prevent pipe breaking caused by errors from gulp plugins
     .pipe(plumber())
