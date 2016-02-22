@@ -26,6 +26,7 @@
     "gulp-wrap": "^0.11.0",
     "gulp.spritesmith": "^6.2.0",
     "jshint-stylish": "^2.1.0",
+    "require-dir": "^0.3.0",
     "yargs": "^4.1.0"
   }
 }
